@@ -1,0 +1,22 @@
+#body1{
+    width: 99vw;
+    height: 96vh;
+    display: flex;
+    flex-direction: column ;
+    justify-content: space-around;
+    align-items: center;
+
+}
+#play{
+
+   font-size: 100%;
+}
+.font{
+    object-fit: cover;
+    width: 5rem;
+    height: 5rem;
+}
+.blue{
+    background-color: blue;
+    width: 40%;
+}
