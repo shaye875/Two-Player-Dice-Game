@@ -8,34 +8,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body id="yyu">
-    <h2></h2>
-    <div id="allplayers">
-        <div>
-            <p id="player1">player 1</p>
-            <p id="sumP1">0</p>
-            <div>
-                <p>curent Score</p>
-                <p id="scoreP1">0</p>
+<body id="body2">
+    <div id="max"></div>
+    <main>
+        <div id="allplayers">
+            <div id="player1" class="player">
+                <div>
+                    <p class="color" id="tit1">player 1</p>
+                    <p class="color" id="sumP1">0</p>
+                </div>
+                <div id="scoreplayer1">
+                    <p class="color" id="scu1">curent Score</p>
+                    <p class="color" id="scoreP1">0</p>
+                </div>
+            </div>
+            <div id="player2" class="player">
+                <div>
+                    <p class="color2" id="tit2">player 2</p>
+                    <p class="color2" id="sumP2">0</p>
+                </div>
+                <div id="scoreplayer2">
+                    <p class="color2" id="scu2">curent Score</p>
+                    <p class="color2" id="scoreP2">0</p>
+                </div>
             </div>
         </div>
-        <div>
-            <p id="player2">player 2</p>
-            <p id="sumP2">0</p>
-            <div>
-                <p>curent Score</p>
-                <p id="scoreP2">0</p>
-            </div>
+        <div id="dics">
+            <div id="dice1"></div>
+            <div id="dice2"></div>
         </div>
-    </div>
-    <div>
-        <div id="dice1"></div>
-        <div id="dice2"></div>
-    </div>
-    <a href="index.html">new game</a>
-    <button id="roll">Roll Dice</button>
-    <button id="hold">Hold</button>
-    <h1 id="end"></h1>
+        <div id="buttuns">
+            <a class="button" id="new" href="index.html" style="text-decoration:none">new game</a>
+            <button class="button" id="roll">Roll Dice</button>
+            <button class="button" id="hold">Hold</button>
+        </div>
+    </main>
+    <h2 id="end"></h2>
 </body>
 <script src="script2.js"></script>
+
 </html>

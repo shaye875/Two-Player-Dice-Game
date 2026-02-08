@@ -1,11 +1,53 @@
+function maxscore(){
+    const div = document.getElementById("max")
+    const p = document.createElement("p")
+    console.log(localStorage.getItem("max"));
+    const text = document.createTextNode("the max score is: "+localStorage.getItem("max"))
+    p.appendChild(text)
+    div.appendChild(p)
+}
 
-
-
+function inStr(text, str) {
+    for (let j = 0; j < str.length; j++) {
+        let count = j
+        let count2 = 0
+        if (text[0] === str[j] && (str.length - j) >= text.length) {
+            for (let t of text) {
+                if (t === str[count]) {
+                    count2++
+                }
+                count++
+            }
+            if (count2 === text.length) {
+                return true
+            }
+        }
+    }
+    return false
+}
 
 function createPlayers() {
     const player1 = { sum: 0, currentScore: 0 }
     const player2 = { sum: 0, currentScore: 0 }
     return [player1, player2]
+}
+
+function stylePlayersPlay(texts,score){
+     const collection = texts
+     console.log(collection);
+     collection.forEach((t)=>{
+        t.classList.add("with")
+     })
+     console.log(score);
+     score.classList.add("scoreBackround")
+}
+
+function stylePlayersNotPlay(texts,score){
+     const collection = texts
+     collection.forEach((t)=>{
+        t.classList.remove("with")
+     })
+     score.classList.remove("scoreBackround")
 }
 
 function hand(player) {
@@ -25,7 +67,6 @@ function hand(player) {
     dice2.innerHTML = ""
     dice2.appendChild(img2)
     if (result1 === result2) {
-
         return false
     }
     player.currentScore += result1 + result2
@@ -45,23 +86,48 @@ function game() {
     const player2 = players[1]
     const divplayer1 = document.getElementById("player1")
     const divplayer2 = document.getElementById("player2")
-    let turnplayer = ""
-    let turnplayer1 = true
-    let turnplayer2 = false
+    const isTurn = Math.floor(Math.random()*2)
+    let turnplayer1
+    let turnplayer2
+    const tit1 = document.getElementById("tit1")
+    const scu1 = document.getElementById("scu1")
+    const divScoreP1 = document.getElementById("scoreP1")
+    const divSunP1 = document.getElementById("sumP1")
+    const tit2 = document.getElementById("tit2")
+    const scu2 = document.getElementById("scu2")
+    const divScoreP2 = document.getElementById("scoreP2")
+    const divSunP2 = document.getElementById("sumP2")
+    const scoreplayer1 = document.getElementById("scoreplayer1")
+    const scoreplayer2 = document.getElementById("scoreplayer2")
+    if(isTurn === 0){
+        turnplayer1 = true
+        turnplayer2 = false
+        stylePlayersPlay([tit1,scu1,divScoreP1,divSunP1],scoreplayer1)
+        divplayer1.classList.add("blue")
+        divplayer2.classList.remove("blue")
+    }else{
+        turnplayer1 = false
+        turnplayer2 = true
+        stylePlayersPlay([tit2,scu2,divScoreP2,divSunP2],scoreplayer2)
+        divplayer2.classList.add("blue")
+        divplayer1.classList.remove("blue")
+    }
     let game = true
     let counthands = 0
     let turn = true
-    divplayer1.classList.add("blue")
-    divplayer2.classList.remove("blue")
     const roll = document.getElementById("roll")
     roll.addEventListener("click", () => {
         if (turnplayer1) {
+
             if (turn) {
                 if (!hand(player1)) {
                     turn = false
+                    player1.currentScore = 0
                 }
                 const text2 = document.createTextNode(String(player1.currentScore))
-                const divScoreP1 = document.getElementById("scoreP1")
+            
+                
+               
                 divScoreP1.innerHTML = ""
                 divScoreP1.appendChild(text2)
                 counthands += 1
@@ -72,12 +138,14 @@ function game() {
                     const h1 = document.getElementById("end")
                     const text6 = document.createTextNode("player 1 is win!!")
                     h1.appendChild(text6)
+                    divplayer1.classList.add("green")
                 }
                 if (counthands === 5) {
                     player1.sum += player1.currentScore
+                    player1.currentScore = 0
                     turn = false
                     localStorage.setItem("player1", String(player1.sum))
-                    const divSunP1 = document.getElementById("sumP1")
+                  
                     const text1 = document.createTextNode(String(player1.sum))
                     divSunP1.innerHTML = ""
                     divSunP1.appendChild(text1)
@@ -89,6 +157,7 @@ function game() {
             if (turn) {
                 if (!hand(player2)) {
                     turn = false
+                    player2.currentScore = 0
                 }
                 const text4 = document.createTextNode(String(player2.currentScore))
                 const divScoreP2 = document.getElementById("scoreP2")
@@ -102,9 +171,11 @@ function game() {
                     const h1 = document.getElementById("end")
                     const text5 = document.createTextNode("player 2 is win!!")
                     h1.appendChild(text5)
+                    divplayer2.classList.add("green")
                 }
                 if (counthands === 5) {
                     player2.sum += player2.currentScore
+                    player2.currentScore = 0
                     turn = false
                     localStorage.setItem("player2", String(player2.sum))
                     const divSunP2 = document.getElementById("sumP2")
@@ -118,8 +189,9 @@ function game() {
     })
     const hold = document.getElementById("hold")
     hold.addEventListener("click", () => {
-
         if (turnplayer1) {
+            stylePlayersNotPlay([tit1,scu1,divScoreP1,divSunP1],scoreplayer1)
+            stylePlayersPlay([tit2,scu2,divScoreP2,divSunP2],scoreplayer2)
             divplayer2.classList.add("blue")
             divplayer1.classList.remove("blue")
             turnplayer1 = false
@@ -128,6 +200,8 @@ function game() {
             counthands = 0
         }
         else if (turnplayer2) {
+            stylePlayersPlay([tit1,scu1,divScoreP1,divSunP1],scoreplayer1)
+            stylePlayersNotPlay([tit2,scu2,divScoreP2,divSunP2],scoreplayer2)
             divplayer1.classList.add("blue")
             divplayer2.classList.remove("blue")
             turnplayer2 = false
@@ -139,6 +213,7 @@ function game() {
 
 
 }
+maxscore()
 game()
 
 
